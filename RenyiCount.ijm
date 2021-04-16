@@ -5,6 +5,10 @@ License: BSD3
 */
 //Wrap ina keyboard shortcut
 macro "Renyi Count [c]" {
+//In case of inverted LUT
+	if (is("Inverting LUT")) {
+		run("Invert LUT");
+	}
 //Threshold the image using Renyi algo
 	setAutoThreshold("Default dark");
 	//run("Threshold...");

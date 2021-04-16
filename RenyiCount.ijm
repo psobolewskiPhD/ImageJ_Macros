@@ -5,6 +5,8 @@ License: BSD3
 */
 //Wrap ina keyboard shortcut
 macro "Renyi Count [c]" {
+//Work on Duplicate (preserve original)
+	run("Duplicate...", " ");  
 //In case of inverted LUT
 	if (is("Inverting LUT")) {
 		run("Invert LUT");

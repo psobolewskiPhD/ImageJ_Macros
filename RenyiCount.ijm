@@ -6,7 +6,16 @@ License: BSD3
 //Wrap ina keyboard shortcut
 macro "Renyi Count [c]" {
 //Work on Duplicate (preserve original)
+//Implement background subtraction via subtraction of Guassian blur
+	orig =  getImageID();
 	run("Duplicate...", " ");  
+	dup = getImageID();
+//Gaussian blur radius (sigma) set to 15 micron 	
+	run("Gaussian Blur...", "sigma=15 scaled");
+	blurred = getImageID();
+	imageCalculator("Subtract create", orig,blurred);
+	selectImage(blurred);
+	close();
 //In case of inverted LUT
 	if (is("Inverting LUT")) {
 		run("Invert LUT");

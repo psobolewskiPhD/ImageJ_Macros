@@ -3,6 +3,8 @@ Authors: Peter Sobolewski, Nina Kantor-Malujdy, West Pomeranian University of Te
 Copyright: 2021
 License: BSD3
 */
+//Wrap ina keyboard shortcut
+macro "Renyi Count [c]" {
 //Threshold the image using Renyi algo
 	setAutoThreshold("Default dark");
 	//run("Threshold...");
@@ -15,3 +17,4 @@ License: BSD3
 	run("Set Measurements...", "area redirect=None decimal=1");
 //Count particles 30-600 micron sq. in area and generate summary
 	run("Analyze Particles...", "size=30-600 circularity=0.30-1.00 show=Overlay display exclude clear summarize");
+}

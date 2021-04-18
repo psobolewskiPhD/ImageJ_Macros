@@ -39,5 +39,5 @@ macro "Renyi Count [c]" {
 	run("Set Measurements...", "area redirect=None decimal=1");
 
 //Count particles 30-600 micron sq. in area and generate summary
-	run("Analyze Particles...", "size=30-600 circularity=0.60-1.00 show=Overlay display exclude clear summarize");
+	run("Analyze Particles...", "size=30-600 circularity=0.60-1.00 show=Overlay display clear summarize");
 }

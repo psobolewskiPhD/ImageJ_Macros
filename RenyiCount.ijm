@@ -27,7 +27,6 @@ macro "Renyi Count [c]" {
 	
 //Threshold the image using Renyi algo
 	setAutoThreshold("Default dark");
-	//run("Threshold...");
 	setAutoThreshold("RenyiEntropy dark");
 	call("ij.plugin.frame.ThresholdAdjuster.setMode", "Over/Under");
 	run("Convert to Mask");

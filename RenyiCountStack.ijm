@@ -10,7 +10,8 @@ macro "Renyi Count Stack [c]" {
 for (i=1; i<nSlices+1;i++) {
 	// Copy slice to be processed
 	Stack.setSlice(i); 	
-	run("Duplicate...", " ");
+	title=getTitle();
+	run("Duplicate...", title+i);
 
 	//Make a 2nd copy
 	//Get IDs of both images for image calculator
@@ -23,6 +24,7 @@ for (i=1; i<nSlices+1;i++) {
 		run("Gaussian Blur...", "sigma=25 scaled");
 		blurred = getImageID();
 		imageCalculator("Subtract create", orig,blurred);
+		delta =  getImageID();
 		selectImage(blurred);
 		close();
 	
@@ -48,5 +50,8 @@ for (i=1; i<nSlices+1;i++) {
 	//Close uneeded images
 		selectImage(orig);
 		close();
+		selectImage(delta);
+		close();
+
 }
 }

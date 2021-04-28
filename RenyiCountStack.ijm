@@ -7,38 +7,43 @@ License: BSD3
 
 //Wrap in a keyboard shortcut
 macro "Renyi Count Stack [c]" {
+for (i=1; i<nSlices+1;i++) {
+	// Copy slice to be processed
+	Stack.setSlice(i); 	
+	run("Duplicate...", " ");
 
-//Work on Duplicate (preserve original)
-//Get IDs of images for image calculator
-	orig =  getImageID();
-	run("Duplicate...", " ");  
-	dup = getImageID();
+	//Make a 2nd copy
+	//Get IDs of both images for image calculator
+		orig =  getImageID();
+		run("Duplicate...", " ");  
+		dup = getImageID();
 		
-//Implement background subtraction via subtraction of Guassian blur
-//Gaussian blur radius (sigma) set to 25 micron (scaled option) 	
-	run("Gaussian Blur...", "sigma=25 scaled");
-	blurred = getImageID();
-	imageCalculator("Subtract create", orig,blurred);
-	selectImage(blurred);
-	close();
+	//Implement background subtraction via subtraction of Guassian blur
+	//Gaussian blur radius (sigma) set to 25 micron (scaled option) 	
+		run("Gaussian Blur...", "sigma=25 scaled");
+		blurred = getImageID();
+		imageCalculator("Subtract create", orig,blurred);
+		selectImage(blurred);
+		close();
 	
-//In case of inverted LUT
-	if (is("Inverting LUT")) {
-		run("Invert LUT");
-	}
+	//In case of inverted LUT
+		if (is("Inverting LUT")) {
+			run("Invert LUT");
+		}
 	
-//Threshold the image using Renyi algo
-	setAutoThreshold("Default dark");
-	setAutoThreshold("RenyiEntropy dark");
-	call("ij.plugin.frame.ThresholdAdjuster.setMode", "Over/Under");
-	run("Convert to Mask");
+	//Threshold the image using Renyi algo
+		setAutoThreshold("Default dark");
+		setAutoThreshold("RenyiEntropy dark");
+		call("ij.plugin.frame.ThresholdAdjuster.setMode", "Over/Under");
+		run("Convert to Mask");
 	
-//Watershed to separate adjacent	
-	run("Watershed");
+	//Watershed to separate adjacent	
+		run("Watershed");
 	
-//Set measurements to just Area
-	run("Set Measurements...", "area redirect=None decimal=1");
+	//Set measurements to just Area
+		run("Set Measurements...", "area redirect=None decimal=1");
 
-//Count particles 30-600 micron sq. in area and generate summary
-	run("Analyze Particles...", "size=30-600 circularity=0.60-1.00 show=Overlay display clear summarize");
+	//Count particles 30-600 micron sq. in area and generate summary
+		run("Analyze Particles...", "size=30-600 circularity=0.60-1.00 show=Overlay display clear summarize");
+}
 }

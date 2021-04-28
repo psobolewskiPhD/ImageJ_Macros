@@ -57,8 +57,9 @@ for (i=1; i<nSlices+1;i++) {
 	//Close Results	
 		selectWindow("Results"); 
         run("Close" );
-    //Rename Summary to Results    
-        IJ.renameResults("Results"); 
+   
+	}
+//Rename Summary to Results    
+        IJ.renameResults("Summary", "Results");
 
-}
 }

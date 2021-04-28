@@ -48,7 +48,5 @@ for (i=1; i<nSlices+1;i++) {
 	//Close uneeded images
 		selectImage(orig);
 		close();
-		selectImage(dup);
-		close();
 }
 }

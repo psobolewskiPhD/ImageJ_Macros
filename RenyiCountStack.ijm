@@ -10,12 +10,14 @@ macro "Renyi Count Stack [c]" {
 for (i=1; i<nSlices+1;i++) {
 	// Copy slice to be processed
 	Stack.setSlice(i); 	
-	title=getTitle();
-	run("Duplicate...", title+i);
+	//Get the name of the slice to be processed
+	title=getInfo("slice.label");
+	//Make a duplicate with the slice id as title
+	run("Duplicate...", "title=["+title+"]");
 
-	//Make a 2nd copy
-	//Get IDs of both images for image calculator
+	//Get IDs of the intial image for image calculator
 		orig =  getImageID();
+	//Make an (extra) duplicate 	
 		run("Duplicate...", " ");  
 		dup = getImageID();
 		

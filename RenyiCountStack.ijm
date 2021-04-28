@@ -54,6 +54,11 @@ for (i=1; i<nSlices+1;i++) {
 		close();
 		selectImage(delta);
 		close();
+	//Close Results	
+		selectWindow("Results"); 
+        run("Close" );
+    //Rename Summary to Results    
+        IJ.renameResults("Results"); 
 
 }
 }

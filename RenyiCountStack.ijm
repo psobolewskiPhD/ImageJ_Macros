@@ -45,5 +45,10 @@ for (i=1; i<nSlices+1;i++) {
 
 	//Count particles 30-600 micron sq. in area and generate summary
 		run("Analyze Particles...", "size=30-600 circularity=0.60-1.00 show=Overlay display clear summarize");
+	//Close uneeded images
+		selectImage(orig);
+		close();
+		selectImage(dup);
+		close();
 }
 }

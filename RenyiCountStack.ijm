@@ -22,8 +22,9 @@ for (i=1; i<nSlices+1;i++) {
 		dup = getImageID();
 		
 	//Implement background subtraction via subtraction of Guassian blur
-	//Gaussian blur radius (sigma) set to 25 micron (scaled option) 	
-		run("Gaussian Blur...", "sigma=25 scaled");
+	//Gaussian blur radius (sigma) set to 12 micron (scaled option) 	
+	//Avg. radius is approx. 7 micron, maximum <10 micron	
+		run("Gaussian Blur...", "sigma=12 scaled");
 		blurred = getImageID();
 		imageCalculator("Subtract create", orig,blurred);
 		delta =  getImageID();
@@ -40,6 +41,9 @@ for (i=1; i<nSlices+1;i++) {
 		setAutoThreshold("RenyiEntropy dark");
 		call("ij.plugin.frame.ThresholdAdjuster.setMode", "Over/Under");
 		run("Convert to Mask");
+
+	//Binary Open (erode then redilate)	
+		run("Open");
 	
 	//Watershed to separate adjacent	
 		run("Watershed");
@@ -47,8 +51,8 @@ for (i=1; i<nSlices+1;i++) {
 	//Set measurements to just Area
 		run("Set Measurements...", "area redirect=None decimal=1");
 
-	//Count particles 30-600 micron sq. in area and generate summary
-		run("Analyze Particles...", "size=30-600 circularity=0.60-1.00 show=Overlay display clear summarize");
+	//Count particles 40-400 micron sq. in area and generate summary
+		run("Analyze Particles...", "size=40-400 circularity=0.60-1.00 show=Overlay display clear summarize");
 	//Close uneeded images
 		selectImage(orig);
 		close();

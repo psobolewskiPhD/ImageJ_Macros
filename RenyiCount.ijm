@@ -41,6 +41,6 @@ macro "Renyi Count [c]" {
 //Set measurements to just Area
 	run("Set Measurements...", "area redirect=None decimal=1");
 
-//Count particles 30-600 micron sq. in area and generate summary
+//Count particles 40-400 micron sq. in area and generate summary
 	run("Analyze Particles...", "size=40-400 circularity=0.60-1.00 show=Overlay display clear summarize");
 }

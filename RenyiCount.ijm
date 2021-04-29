@@ -13,8 +13,9 @@ macro "Renyi Count [c]" {
 	dup = getImageID();
 		
 //Implement background subtraction via subtraction of Guassian blur
-//Gaussian blur radius (sigma) set to 25 micron (scaled option) 	
-	run("Gaussian Blur...", "sigma=25 scaled");
+//Gaussian blur radius (sigma) set to 12 micron (scaled option)
+//The typical radius of nuclei is 7 um, maximum radius of nuclei is <10 micron
+	run("Gaussian Blur...", "sigma=12 scaled");
 	blurred = getImageID();
 	imageCalculator("Subtract create", orig,blurred);
 	selectImage(blurred);
@@ -30,6 +31,9 @@ macro "Renyi Count [c]" {
 	setAutoThreshold("RenyiEntropy dark");
 	call("ij.plugin.frame.ThresholdAdjuster.setMode", "Over/Under");
 	run("Convert to Mask");
+
+//Binary Open (erode then redilate)	
+	run("Open");	
 	
 //Watershed to separate adjacent	
 	run("Watershed");

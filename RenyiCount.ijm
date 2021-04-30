@@ -32,11 +32,14 @@ macro "Renyi Count [c]" {
 //Implement background subtraction via subtraction of Guassian blur
 //Gaussian blur radius (sigma) set to 12 micron (scaled option)
 //The typical radius of nuclei is 7 um, maximum radius of nuclei is <10 micron
+	selectImage(dup);
 	run("Gaussian Blur...", "sigma=12 scaled");
 	blurred = getImageID();
 	imageCalculator("Subtract create", orig,blurred);
+	delta =  getImageID();
 	selectImage(blurred);
 	close();
+	selectImage(delta);
 	
 //In case of inverted LUT
 	if (is("Inverting LUT")) {

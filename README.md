@@ -7,3 +7,5 @@ It subtracts background by subtracting a Gaussian blurred version of the image, 
 
 *Renyi_CountStack*  
 This is a macro executes the RenyiCount macro, but iterates over a stack.
+
+The two marcros with *CLIJ* prefixes are GPU accelerated using CLIJ

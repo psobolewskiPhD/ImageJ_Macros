@@ -1,5 +1,6 @@
 run("CLIJ2 Macro Extensions", "cl_device=");
 Ext.CLIJ2_clear();
+
 time = getTime();
 
 orig =  getTitle();
@@ -13,7 +14,7 @@ scale = 1/pw; //convert to pixel/micron
 for (i=0; i < slices; i ++) {
 	Stack.setSlice(i+1);
 	title=getInfo("slice.label");
-	SliceLabel = split(title, "\n");	
+
 	Ext.CLIJ2_pushCurrentSlice(orig);
 	
 	//Set Guassian blur sigma values
@@ -22,11 +23,16 @@ for (i=0; i < slices; i ++) {
 	sigma1y = 0;
 	sigma2x = 12*scale;
 	sigma2y = 12*scale;
-	Ext.CLIJ2_gaussianBlur2D(orig, blurred, sigma2x, sigma2y);
+	
+	//Background Subtraction
+	//Ext.CLIJ2_topHatBox(orig, DoG, 6*scale, 6*scale, 0);
 	//Ext.CLIJ2_differenceOfGaussian2D(orig, DoG, sigma1x, sigma1y, sigma2x, sigma2y);
-	//Ext.CLIJ2_topHatBox(orig, DoG, sigma2x, sigma2y, 0);
+	// Perform a Gaussian blur
+	Ext.CLIJ2_gaussianBlur2D(orig, blurred, sigma2x, sigma2y);
+	//Background subtraction by subtracting the blurred image from original
 	Ext.CLIJ2_subtractImages(orig, blurred, DoG);
 	Ext.CLIJ2_release(blurred);
+	//
 	Ext.CLIJ2_release(orig);
 	//Ext.CLIJ2_pull(DoG);
 	Ext.CLIJ2_thresholdRenyiEntropy(DoG, mask);
